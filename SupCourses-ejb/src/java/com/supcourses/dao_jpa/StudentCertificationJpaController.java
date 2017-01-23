@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -40,7 +41,7 @@ public class StudentCertificationJpaController implements StudentCertificationDa
 
     
     @Override
-    public void create(StudentCertification studentCertification) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public StudentCertification create(StudentCertification studentCertification) throws PreexistingEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -65,6 +66,7 @@ public class StudentCertificationJpaController implements StudentCertificationDa
                 studentId = em.merge(studentId);
             }
             //utx.commit();
+            return studentCertification;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -83,7 +85,7 @@ public class StudentCertificationJpaController implements StudentCertificationDa
     }
 
     @Override
-    public void edit(StudentCertification studentCertification) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public StudentCertification edit(StudentCertification studentCertification) throws NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -119,6 +121,7 @@ public class StudentCertificationJpaController implements StudentCertificationDa
                 studentIdNew = em.merge(studentIdNew);
             }
             //utx.commit();
+            return studentCertification;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -141,7 +144,7 @@ public class StudentCertificationJpaController implements StudentCertificationDa
     }
 
     @Override
-    public void destroy(String id) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public StudentCertification destroy(String id) throws NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -165,6 +168,7 @@ public class StudentCertificationJpaController implements StudentCertificationDa
             }
             em.remove(studentCertification);
             //utx.commit();
+            return studentCertification;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -227,6 +231,54 @@ public class StudentCertificationJpaController implements StudentCertificationDa
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public List<StudentCertification> findStudentCertificationsByStudent(Student student) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<StudentCertification> rt = cq.from(StudentCertification.class);
+            cq.select(rt).where(cb.equal(rt.get("student_id"), student.getStudentId()));
+            Query q = em.createQuery(cq);
+            List<StudentCertification> studentCertifications = (List<StudentCertification>) q.getResultList();
+            return studentCertifications;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<StudentCertification> findStudentCertificationsByCertification(Certification certification) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<StudentCertification> rt = cq.from(StudentCertification.class);
+            cq.select(rt).where(cb.equal(rt.get("certification_id"), certification.getCertificationId()));
+            Query q = em.createQuery(cq);
+            List<StudentCertification> studentCertifications = (List<StudentCertification>) q.getResultList();
+            return studentCertifications;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StudentCertification findStudentCertificationByStudentAndCertification(Student student, Certification certification) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<StudentCertification> rt = cq.from(StudentCertification.class);
+            cq.select(rt).where(cb.equal(rt.get("student_id"), student.getStudentId()), cb.equal(rt.get("certification_id"), certification.getCertificationId()));
+            Query q = em.createQuery(cq);
+            StudentCertification studentCertification = (StudentCertification) q.getSingleResult();
+            return studentCertification;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -27,6 +27,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -44,7 +45,7 @@ public class QuizzJpaController implements QuizzDao {
 
 
     @Override
-    public void create(Quizz quizz) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public Quizz create(Quizz quizz) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (quizz.getQuestionCollection() == null) {
             quizz.setQuestionCollection(new ArrayList<Question>());
         }
@@ -96,6 +97,7 @@ public class QuizzJpaController implements QuizzDao {
                 }
             }
             //utx.commit();
+            return quizz;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -114,7 +116,7 @@ public class QuizzJpaController implements QuizzDao {
     }
 
     @Override
-    public void edit(Quizz quizz) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Quizz edit(Quizz quizz) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -196,6 +198,7 @@ public class QuizzJpaController implements QuizzDao {
                 }
             }
             //utx.commit();
+            return quizz;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -218,7 +221,7 @@ public class QuizzJpaController implements QuizzDao {
     }
 
     @Override
-    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Quizz destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -255,6 +258,7 @@ public class QuizzJpaController implements QuizzDao {
             }
             em.remove(quizz);
             //utx.commit();
+            return quizz;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -317,6 +321,22 @@ public class QuizzJpaController implements QuizzDao {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public List<Quizz> findQuizzsByModule(Module module) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Quizz> rt = cq.from(Quizz.class);
+            cq.select(rt).where(cb.equal(rt.get("module_id"), module.getModuleId()));
+            Query q = em.createQuery(cq);
+            List<Quizz> quizzs = (List<Quizz>) q.getResultList();
+            return quizzs;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

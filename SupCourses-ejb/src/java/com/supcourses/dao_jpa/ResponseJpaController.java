@@ -27,6 +27,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -44,7 +45,7 @@ public class ResponseJpaController implements ResponseDao {
 
 
     @Override
-    public void create(Response response) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public Response create(Response response) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (response.getStudentResponseCollection() == null) {
             response.setStudentResponseCollection(new ArrayList<StudentResponse>());
         }
@@ -87,6 +88,7 @@ public class ResponseJpaController implements ResponseDao {
                 }
             }
             //utx.commit();
+            return response;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -105,7 +107,7 @@ public class ResponseJpaController implements ResponseDao {
     }
 
     @Override
-    public void edit(Response response) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Response edit(Response response) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -173,6 +175,7 @@ public class ResponseJpaController implements ResponseDao {
                 }
             }
             //utx.commit();
+            return response;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -195,7 +198,7 @@ public class ResponseJpaController implements ResponseDao {
     }
 
     @Override
-    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Response destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -230,6 +233,7 @@ public class ResponseJpaController implements ResponseDao {
             }
             em.remove(response);
             //utx.commit();
+            return response;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -292,6 +296,54 @@ public class ResponseJpaController implements ResponseDao {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public List<Response> findResponsesByCorrect(boolean correct) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Response> rt = cq.from(Response.class);
+            cq.select(rt).where(cb.equal(rt.get("correct"), correct));
+            Query q = em.createQuery(cq);
+            List<Response> responses = (List<Response>) q.getResultList();
+            return responses;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Response> findResponsesByResponseType(ResponseType responseType) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Response> rt = cq.from(Response.class);
+            cq.select(rt).where(cb.equal(rt.get("response_type_id"), responseType.getResponseTypeId()));
+            Query q = em.createQuery(cq);
+            List<Response> responses = (List<Response>) q.getResultList();
+            return responses;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Response> findResponsesByQuestion(Question question) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Response> rt = cq.from(Response.class);
+            cq.select(rt).where(cb.equal(rt.get("question_id"), question.getQuestionId()));
+            Query q = em.createQuery(cq);
+            List<Response> responses = (List<Response>) q.getResultList();
+            return responses;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

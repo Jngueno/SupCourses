@@ -25,6 +25,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -41,7 +42,7 @@ public class ModuleJpaController implements ModuleDao {
     //private UserTransaction utx;
 
     @Override
-    public void create(Module module) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public Module create(Module module) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (module.getQuizzCollection() == null) {
             module.setQuizzCollection(new ArrayList<Quizz>());
         }
@@ -93,6 +94,7 @@ public class ModuleJpaController implements ModuleDao {
                 }
             }
             //utx.commit();
+            return module;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -111,7 +113,7 @@ public class ModuleJpaController implements ModuleDao {
     }
 
     @Override
-    public void edit(Module module) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Module edit(Module module) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -193,6 +195,7 @@ public class ModuleJpaController implements ModuleDao {
                 }
             }
             //utx.commit();
+            return module;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -215,7 +218,7 @@ public class ModuleJpaController implements ModuleDao {
     }
 
     @Override
-    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Module destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -252,6 +255,7 @@ public class ModuleJpaController implements ModuleDao {
             }
             em.remove(module);
             //utx.commit();
+            return module;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -319,6 +323,27 @@ public class ModuleJpaController implements ModuleDao {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public Module findModuleByName(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Module> findModulesCourse(Course course) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Module> rt = cq.from(Module.class);
+            cq.select(rt).where(cb.equal(rt.get("course_id"), course.getCourseId()));
+            Query q = em.createQuery(cq);
+            List<Module> modules = (List<Module>) q.getResultList();
+            return modules;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

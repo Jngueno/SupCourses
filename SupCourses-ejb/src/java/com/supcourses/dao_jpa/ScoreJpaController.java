@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -40,7 +41,7 @@ public class ScoreJpaController implements ScoreDao {
 
 
     @Override
-    public void create(Score score) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public Score create(Score score) throws PreexistingEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -65,6 +66,7 @@ public class ScoreJpaController implements ScoreDao {
                 quizzId = em.merge(quizzId);
             }
             //utx.commit();
+            return score;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -83,7 +85,7 @@ public class ScoreJpaController implements ScoreDao {
     }
 
     @Override
-    public void edit(Score score) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public Score edit(Score score) throws NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -119,6 +121,7 @@ public class ScoreJpaController implements ScoreDao {
                 quizzIdNew = em.merge(quizzIdNew);
             }
             //utx.commit();
+            return score;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -141,7 +144,7 @@ public class ScoreJpaController implements ScoreDao {
     }
 
     @Override
-    public void destroy(String id) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public Score destroy(String id) throws NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -165,6 +168,7 @@ public class ScoreJpaController implements ScoreDao {
             }
             em.remove(score);
             //utx.commit();
+            return score;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -227,6 +231,54 @@ public class ScoreJpaController implements ScoreDao {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public List<Score> findScoresByStudent(Student student) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Score> rt = cq.from(Score.class);
+            cq.select(rt).where(cb.equal(rt.get("student_id"), student.getStudentId()));
+            Query q = em.createQuery(cq);
+            List<Score> scores = (List<Score>) q.getResultList();
+            return scores;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Score> findScoresByQuizz(Quizz quizz) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Score> rt = cq.from(Score.class);
+            cq.select(rt).where(cb.equal(rt.get("quizz_id"), quizz.getQuizzId()));
+            Query q = em.createQuery(cq);
+            List<Score> scores = (List<Score>) q.getResultList();
+            return scores;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Score findScoreByStudentAndQuizz(Student student, Quizz quizz) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Score> rt = cq.from(Score.class);
+            cq.select(rt).where(cb.equal(rt.get("student_id"), student.getStudentId()), cb.equal(rt.get("quizz_id"), quizz.getQuizzId()));
+            Query q = em.createQuery(cq);
+            Score score = (Score) q.getSingleResult();
+            return score;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

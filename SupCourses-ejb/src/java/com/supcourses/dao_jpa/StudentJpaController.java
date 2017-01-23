@@ -28,6 +28,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -45,7 +46,7 @@ public class StudentJpaController implements StudentDao {
 
 
     @Override
-    public void create(Student student) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public Student create(Student student) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (student.getScoreCollection() == null) {
             student.setScoreCollection(new ArrayList<Score>());
         }
@@ -123,6 +124,7 @@ public class StudentJpaController implements StudentDao {
                     oldStudentIdOfStudentCourseCollectionStudentCourse = em.merge(oldStudentIdOfStudentCourseCollectionStudentCourse);
                 }
             }
+            return student;
             //utx.commit();
         } catch (Exception ex) {
             try {
@@ -142,7 +144,7 @@ public class StudentJpaController implements StudentDao {
     }
 
     @Override
-    public void edit(Student student) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Student edit(Student student) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -265,6 +267,7 @@ public class StudentJpaController implements StudentDao {
                     }
                 }
             }
+            return student;
             //utx.commit();
         } catch (Exception ex) {
             try {
@@ -288,7 +291,7 @@ public class StudentJpaController implements StudentDao {
     }
 
     @Override
-    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Student destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -333,6 +336,7 @@ public class StudentJpaController implements StudentDao {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(student);
+            return student;
             //utx.commit();
         } catch (Exception ex) {
             try {
@@ -396,6 +400,22 @@ public class StudentJpaController implements StudentDao {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public Student findStudentByEmailAndPassword(String eMail, String password) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Student> rt = cq.from(Student.class);
+            cq.select(rt).where(cb.equal(rt.get("e-mail"), eMail), cb.equal(rt.get("password"), password));
+            Query q = em.createQuery(cq);
+            Student student = (Student) q.getResultList();
+            return student;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

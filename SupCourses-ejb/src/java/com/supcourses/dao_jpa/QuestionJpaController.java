@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -42,7 +43,7 @@ public class QuestionJpaController implements QuestionDao {
     //private UserTransaction utx;
 
     @Override
-    public void create(Question question) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public Question create(Question question) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (question.getResponseCollection() == null) {
             question.setResponseCollection(new ArrayList<Response>());
         }
@@ -74,6 +75,7 @@ public class QuestionJpaController implements QuestionDao {
                 }
             }
             //utx.commit();
+            return question;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -92,7 +94,7 @@ public class QuestionJpaController implements QuestionDao {
     }
 
     @Override
-    public void edit(Question question) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Question edit(Question question) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -146,6 +148,7 @@ public class QuestionJpaController implements QuestionDao {
                 }
             }
             //utx.commit();
+            return question;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -168,7 +171,7 @@ public class QuestionJpaController implements QuestionDao {
     }
 
     @Override
-    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Question destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -198,6 +201,7 @@ public class QuestionJpaController implements QuestionDao {
             }
             em.remove(question);
             //utx.commit();
+            return question;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -260,6 +264,22 @@ public class QuestionJpaController implements QuestionDao {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public List<Question> findQuestionsbyQuizz(Quizz quizz) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Question> rt = cq.from(Question.class);
+            cq.select(rt).where(cb.equal(rt.get("quizz_id"), quizz.getQuizzId()));
+            Query q = em.createQuery(cq);
+            List<Question> questions = (List<Question>) q.getResultList();
+            return questions;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

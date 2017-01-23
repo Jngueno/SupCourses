@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -42,7 +43,7 @@ public class ResponseTypeJpaController implements ResponseTypeDao {
 
 
     @Override
-    public void create(ResponseType responseType) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public ResponseType create(ResponseType responseType) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (responseType.getResponseCollection() == null) {
             responseType.setResponseCollection(new ArrayList<Response>());
         }
@@ -67,6 +68,7 @@ public class ResponseTypeJpaController implements ResponseTypeDao {
                 }
             }
             //utx.commit();
+            return responseType;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -85,7 +87,7 @@ public class ResponseTypeJpaController implements ResponseTypeDao {
     }
 
     @Override
-    public void edit(ResponseType responseType) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public ResponseType edit(ResponseType responseType) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -125,6 +127,7 @@ public class ResponseTypeJpaController implements ResponseTypeDao {
                 }
             }
             //utx.commit();
+            return responseType;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -147,7 +150,7 @@ public class ResponseTypeJpaController implements ResponseTypeDao {
     }
 
     @Override
-    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public ResponseType destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -172,6 +175,7 @@ public class ResponseTypeJpaController implements ResponseTypeDao {
             }
             em.remove(responseType);
             //utx.commit();
+            return responseType;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -234,6 +238,22 @@ public class ResponseTypeJpaController implements ResponseTypeDao {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public ResponseType findResponseTypeByResponseTypeContent(String responseTypeContent) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<ResponseType> rt = cq.from(ResponseType.class);
+            cq.select(rt).where(cb.equal(rt.get("response_type_content"), responseTypeContent));
+            Query q = em.createQuery(cq);
+            ResponseType responseType = (ResponseType) q.getSingleResult();
+            return responseType;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

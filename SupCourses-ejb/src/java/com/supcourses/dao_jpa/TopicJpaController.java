@@ -208,20 +208,34 @@ public class TopicJpaController implements TopicDao {
 
     @Override
     public Topic findTopicByTitle(String title) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery cq = cb.createQuery();
-        Root<Topic> rt = cq.from(Topic.class);
-        ParameterExpression<String> t = cb.parameter(String.class);
-        
-        cq.select(rt).where(cb.equal(rt.get("title"), t));
-        Query q = em.createQuery(cq);
-        Topic topic = (Topic) q.getSingleResult();
-        return topic;
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Topic> rt = cq.from(Topic.class);
+            cq.select(rt).where(cb.equal(rt.get("title"), title));
+            Query q = em.createQuery(cq);
+            Topic topic = (Topic) q.getSingleResult();
+            return topic;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public List<Topic> findTopicEntities(boolean validate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Topic> rt = cq.from(Topic.class);
+            cq.select(rt).where(cb.equal(rt.get("validate"), validate));
+            Query q = em.createQuery(cq);
+            List<Topic> topics = (List<Topic>) q.getResultList();
+            return topics;
+        }
+        finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

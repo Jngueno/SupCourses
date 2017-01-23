@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -42,7 +43,7 @@ public class TagJpaController implements TagDao {
 
 
     @Override
-    public void create(Tag tag) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public Tag create(Tag tag) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (tag.getCourseCollection() == null) {
             tag.setCourseCollection(new ArrayList<Course>());
         }
@@ -66,6 +67,7 @@ public class TagJpaController implements TagDao {
                     oldTagIdOfCourseCollectionCourse = em.merge(oldTagIdOfCourseCollectionCourse);
                 }
             }
+            return tag;
             //utx.commit();
         } catch (Exception ex) {
             try {
@@ -85,7 +87,7 @@ public class TagJpaController implements TagDao {
     }
 
     @Override
-    public void edit(Tag tag) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Tag edit(Tag tag) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -124,6 +126,7 @@ public class TagJpaController implements TagDao {
                     }
                 }
             }
+            return tag;
             //utx.commit();
         } catch (Exception ex) {
             try {
@@ -147,7 +150,7 @@ public class TagJpaController implements TagDao {
     }
 
     @Override
-    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Tag destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -171,6 +174,7 @@ public class TagJpaController implements TagDao {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(tag);
+            return tag;
             //utx.commit();
         } catch (Exception ex) {
             try {
@@ -234,6 +238,22 @@ public class TagJpaController implements TagDao {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public Tag findTagByName(String name) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Tag> rt = cq.from(Tag.class);
+            cq.select(rt).where(cb.equal(rt.get("name"), name));
+            Query q = em.createQuery(cq);
+            Tag tag = (Tag) q.getSingleResult();
+            return tag;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

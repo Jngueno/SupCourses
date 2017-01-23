@@ -26,6 +26,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -42,7 +43,7 @@ public class CourseJpaController implements CourseDao {
     //private UserTransaction utx;
 
     @Override
-    public void create(Course course) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public Course create(Course course) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (course.getModuleCollection() == null) {
             course.setModuleCollection(new ArrayList<Module>());
         }
@@ -110,6 +111,7 @@ public class CourseJpaController implements CourseDao {
                 }
             }
             //utx.commit();
+            return course;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -128,7 +130,7 @@ public class CourseJpaController implements CourseDao {
     }
 
     @Override
-    public void edit(Course course) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Course edit(Course course) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         try {
             //utx.begin();
             //em = getEntityManager();
@@ -237,6 +239,7 @@ public class CourseJpaController implements CourseDao {
                 }
             }
             //utx.commit();
+            return course;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -259,7 +262,7 @@ public class CourseJpaController implements CourseDao {
     }
 
     @Override
-    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Course destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         try {
             //utx.begin();
             Course course;
@@ -301,6 +304,7 @@ public class CourseJpaController implements CourseDao {
             }
             em.remove(course);
             //utx.commit();
+            return course;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -360,6 +364,38 @@ public class CourseJpaController implements CourseDao {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public Course findCourseByName(String name) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Course> rt = cq.from(Course.class);
+            cq.select(rt).where(cb.equal(rt.get("name"), name));
+            Query q = em.createQuery(cq);
+            Course course = (Course) q.getResultList();
+            return course;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Course> findCoursesByTag(Tag tag) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<Course> rt = cq.from(Course.class);
+            cq.select(rt).where(cb.equal(rt.get("tag_id"), tag.getTagId()));
+            Query q = em.createQuery(cq);
+            List<Course> courses = (List<Course>) q.getResultList();
+            return courses;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

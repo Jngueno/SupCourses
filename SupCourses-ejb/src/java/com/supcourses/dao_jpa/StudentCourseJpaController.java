@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -40,7 +41,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
 
 
     @Override
-    public void create(StudentCourse studentCourse) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public StudentCourse create(StudentCourse studentCourse) throws PreexistingEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -64,6 +65,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
                 courseId.getStudentCourseCollection().add(studentCourse);
                 courseId = em.merge(courseId);
             }
+            return studentCourse;
             //utx.commit();
         } catch (Exception ex) {
             try {
@@ -83,7 +85,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
     }
 
     @Override
-    public void edit(StudentCourse studentCourse) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public StudentCourse edit(StudentCourse studentCourse) throws NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -118,6 +120,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
                 courseIdNew.getStudentCourseCollection().add(studentCourse);
                 courseIdNew = em.merge(courseIdNew);
             }
+            return studentCourse;
             //utx.commit();
         } catch (Exception ex) {
             try {
@@ -141,7 +144,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
     }
 
     @Override
-    public void destroy(String id) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public StudentCourse destroy(String id) throws NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -164,6 +167,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
                 courseId = em.merge(courseId);
             }
             em.remove(studentCourse);
+            return studentCourse;
             //utx.commit();
         } catch (Exception ex) {
             try {
@@ -227,6 +231,54 @@ public class StudentCourseJpaController implements StudentCourseDao {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public List<StudentCourse> findStudentCoursesByCourse(Course course) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<StudentCourse> rt = cq.from(StudentCourse.class);
+            cq.select(rt).where(cb.equal(rt.get("course_id"), course.getCourseId()));
+            Query q = em.createQuery(cq);
+            List<StudentCourse> studentCourses = (List<StudentCourse>) q.getResultList();
+            return studentCourses;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<StudentCourse> findStudentCoursesByStudent(Student student) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<StudentCourse> rt = cq.from(StudentCourse.class);
+            cq.select(rt).where(cb.equal(rt.get("student_id"), student.getStudentId()));
+            Query q = em.createQuery(cq);
+            List<StudentCourse> studentCourses = (List<StudentCourse>) q.getResultList();
+            return studentCourses;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StudentCourse findStudentCourseByStudentAndCourse(Student student, Course course) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<StudentCourse> rt = cq.from(StudentCourse.class);
+            cq.select(rt).where(cb.equal(rt.get("student_id"), student.getStudentId()), cb.equal(rt.get("course_id"), course.getCourseId()));
+            Query q = em.createQuery(cq);
+            StudentCourse studentCourse = (StudentCourse) q.getSingleResult();
+        return studentCourse;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

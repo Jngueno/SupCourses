@@ -40,7 +40,7 @@ public class CertificationJpaController implements CertificationDao {
     //private UserTransaction utx;
     
     @Override
-    public void create(Certification certification) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public Certification create(Certification certification) throws PreexistingEntityException, RollbackFailureException, Exception {
         if (certification.getStudentCertificationCollection() == null) {
             certification.setStudentCertificationCollection(new ArrayList<StudentCertification>());
         }
@@ -72,6 +72,7 @@ public class CertificationJpaController implements CertificationDao {
                 }
             }
             //utx.commit();
+            return certification;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -90,7 +91,7 @@ public class CertificationJpaController implements CertificationDao {
     }
 
     @Override
-    public void edit(Certification certification) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Certification edit(Certification certification) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         try {
             //utx.begin();
             Certification persistentCertification = em.find(Certification.class, certification.getCertificationId());
@@ -142,6 +143,7 @@ public class CertificationJpaController implements CertificationDao {
                 }
             }
             //utx.commit();
+            return certification;
         } catch (Exception ex) {
             try {
                 //utx.rollback();
@@ -164,7 +166,7 @@ public class CertificationJpaController implements CertificationDao {
     }
 
     @Override
-    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public Certification destroy(String id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
         try {
             //utx.begin();
             Certification certification;
@@ -192,6 +194,7 @@ public class CertificationJpaController implements CertificationDao {
             }
             em.remove(certification);
             //utx.commit();
+            return certification;
         } catch (Exception ex) {
             try {
                 //utx.rollback();

@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.UserTransaction;
 
 /**
@@ -40,7 +41,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
 
 
     @Override
-    public void create(StudentResponse studentResponse) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public StudentResponse create(StudentResponse studentResponse) throws PreexistingEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -64,6 +65,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
                 responseId.getStudentResponseCollection().add(studentResponse);
                 responseId = em.merge(responseId);
             }
+            return studentResponse;
             //utx.commit();
         } catch (Exception ex) {
             try {
@@ -83,7 +85,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
     }
 
     @Override
-    public void edit(StudentResponse studentResponse) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public StudentResponse edit(StudentResponse studentResponse) throws NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -118,6 +120,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
                 responseIdNew.getStudentResponseCollection().add(studentResponse);
                 responseIdNew = em.merge(responseIdNew);
             }
+            return studentResponse;
             //utx.commit();
         } catch (Exception ex) {
             try {
@@ -141,7 +144,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
     }
 
     @Override
-    public void destroy(String id) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public StudentResponse destroy(String id) throws NonexistentEntityException, RollbackFailureException, Exception {
         //EntityManager em = null;
         try {
             //utx.begin();
@@ -164,6 +167,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
                 responseId = em.merge(responseId);
             }
             em.remove(studentResponse);
+            return studentResponse;
             //utx.commit();
         } catch (Exception ex) {
             try {
@@ -227,6 +231,54 @@ public class StudentResponseJpaController implements StudentResponseDao {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public List<StudentResponse> findStudentResponsesByStudent(Student student) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<StudentResponse> rt = cq.from(StudentResponse.class);
+            cq.select(rt).where(cb.equal(rt.get("student_id"), student.getStudentId()));
+            Query q = em.createQuery(cq);
+            List<StudentResponse> studentResponses = (List<StudentResponse>) q.getResultList();
+            return studentResponses;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<StudentResponse> findStudentResponsesByResponse(Response response) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<StudentResponse> rt = cq.from(StudentResponse.class);
+            cq.select(rt).where(cb.equal(rt.get("response_id"), response.getResponseId()));
+            Query q = em.createQuery(cq);
+            List<StudentResponse> studentResponses = (List<StudentResponse>) q.getResultList();
+            return studentResponses;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public StudentResponse findStudentResponseByStudentAndResponse(Student student, Response response) {
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery cq = cb.createQuery();
+            Root<StudentResponse> rt = cq.from(StudentResponse.class);
+            cq.select(rt).where(cb.equal(rt.get("student_id"), student.getStudentId()), cb.equal(rt.get("response_id"), response.getResponseId()));
+            Query q = em.createQuery(cq);
+            StudentResponse studentResponse = (StudentResponse) q.getSingleResult();
+            return studentResponse;
+        } finally {
+            em.close();
+        }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
