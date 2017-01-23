@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/StudentCertificationDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/QuestionJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/StudentCertificationJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/StudentResponseJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/conf/persistence.xml</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/TopicDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/QuizzDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/QuestionDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/QuizzJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/CertificationDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/entity/Topic.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/TagDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/CourseJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/TagJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/StudentCourseDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/StudentDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/ScoreDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/ResponseJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/StudentCourseJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/ModuleDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/ResponseTypeJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/StudentResponseDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/TopicJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/ResponseDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/StudentJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/CertificationJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/ScoreJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/entity/Student.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/ModuleJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/ResponseTypeDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/conf/META-INF/glassfish-resources.xml</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/CourseDao.java</file>
+        </group>
+    </open-files>
+</project-private>
