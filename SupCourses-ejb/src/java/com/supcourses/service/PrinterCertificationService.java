@@ -28,7 +28,7 @@ public class PrinterCertificationService {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     
-    /*@Resource(mappedName="jms/SupCoursesFactory")
+    @Resource(mappedName="jms/SupCoursesFactory")
     private ConnectionFactory connectionFactory;
     
     @Resource(mappedName="jms/SupCourses")
@@ -66,5 +66,5 @@ public class PrinterCertificationService {
             }
         }
         
-    }*/
+    }
 }
