@@ -81,7 +81,7 @@ public class TagJpaController implements TagDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -144,7 +144,7 @@ public class TagJpaController implements TagDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -185,7 +185,7 @@ public class TagJpaController implements TagDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -212,7 +212,7 @@ public class TagJpaController implements TagDao {
             }
             return q.getResultList();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -222,7 +222,7 @@ public class TagJpaController implements TagDao {
         try {
             return em.find(Tag.class, id);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -236,7 +236,7 @@ public class TagJpaController implements TagDao {
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -251,7 +251,7 @@ public class TagJpaController implements TagDao {
             Tag tag = (Tag) q.getSingleResult();
             return tag;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

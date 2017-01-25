@@ -79,7 +79,7 @@ public class ScoreJpaController implements ScoreDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -138,7 +138,7 @@ public class ScoreJpaController implements ScoreDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -178,7 +178,7 @@ public class ScoreJpaController implements ScoreDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -205,7 +205,7 @@ public class ScoreJpaController implements ScoreDao {
             }
             return q.getResultList();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -215,7 +215,7 @@ public class ScoreJpaController implements ScoreDao {
         try {
             return em.find(Score.class, id);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -229,7 +229,7 @@ public class ScoreJpaController implements ScoreDao {
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -244,7 +244,7 @@ public class ScoreJpaController implements ScoreDao {
             List<Score> scores = (List<Score>) q.getResultList();
             return scores;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -260,7 +260,7 @@ public class ScoreJpaController implements ScoreDao {
             List<Score> scores = (List<Score>) q.getResultList();
             return scores;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -276,7 +276,7 @@ public class ScoreJpaController implements ScoreDao {
             Score score = (Score) q.getSingleResult();
             return score;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

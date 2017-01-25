@@ -88,7 +88,7 @@ public class QuestionJpaController implements QuestionDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -165,7 +165,7 @@ public class QuestionJpaController implements QuestionDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -211,7 +211,7 @@ public class QuestionJpaController implements QuestionDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -238,7 +238,7 @@ public class QuestionJpaController implements QuestionDao {
             }
             return q.getResultList();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -248,7 +248,7 @@ public class QuestionJpaController implements QuestionDao {
         try {
             return em.find(Question.class, id);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -262,7 +262,7 @@ public class QuestionJpaController implements QuestionDao {
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -277,7 +277,7 @@ public class QuestionJpaController implements QuestionDao {
             List<Question> questions = (List<Question>) q.getResultList();
             return questions;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

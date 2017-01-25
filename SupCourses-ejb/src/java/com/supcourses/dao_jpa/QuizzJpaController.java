@@ -110,7 +110,7 @@ public class QuizzJpaController implements QuizzDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -215,7 +215,7 @@ public class QuizzJpaController implements QuizzDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -268,7 +268,7 @@ public class QuizzJpaController implements QuizzDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -295,7 +295,7 @@ public class QuizzJpaController implements QuizzDao {
             }
             return q.getResultList();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -305,7 +305,7 @@ public class QuizzJpaController implements QuizzDao {
         try {
             return em.find(Quizz.class, id);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -319,7 +319,7 @@ public class QuizzJpaController implements QuizzDao {
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -334,7 +334,7 @@ public class QuizzJpaController implements QuizzDao {
             List<Quizz> quizzs = (List<Quizz>) q.getResultList();
             return quizzs;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -138,7 +138,7 @@ public class StudentJpaController implements StudentDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -285,7 +285,7 @@ public class StudentJpaController implements StudentDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -347,7 +347,7 @@ public class StudentJpaController implements StudentDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -374,7 +374,7 @@ public class StudentJpaController implements StudentDao {
             }
             return q.getResultList();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -384,7 +384,7 @@ public class StudentJpaController implements StudentDao {
         try {
             return em.find(Student.class, id);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -398,7 +398,7 @@ public class StudentJpaController implements StudentDao {
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -413,7 +413,7 @@ public class StudentJpaController implements StudentDao {
             Student student = (Student) q.getResultList();
             return student;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

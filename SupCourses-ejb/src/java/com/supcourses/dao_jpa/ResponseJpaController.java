@@ -101,7 +101,7 @@ public class ResponseJpaController implements ResponseDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -192,7 +192,7 @@ public class ResponseJpaController implements ResponseDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -243,7 +243,7 @@ public class ResponseJpaController implements ResponseDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -270,7 +270,7 @@ public class ResponseJpaController implements ResponseDao {
             }
             return q.getResultList();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -280,7 +280,7 @@ public class ResponseJpaController implements ResponseDao {
         try {
             return em.find(Response.class, id);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -294,7 +294,7 @@ public class ResponseJpaController implements ResponseDao {
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -309,7 +309,7 @@ public class ResponseJpaController implements ResponseDao {
             List<Response> responses = (List<Response>) q.getResultList();
             return responses;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -341,7 +341,7 @@ public class ResponseJpaController implements ResponseDao {
             List<Response> responses = (List<Response>) q.getResultList();
             return responses;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

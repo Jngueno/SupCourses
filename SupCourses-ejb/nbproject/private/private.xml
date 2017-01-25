@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao_jpa/TopicJpaController.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/service/ScoreService.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/service/TopicService.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/dao/TopicDao.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/service/StudentService.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/service/StudentResponseService.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/service/StudentCourseService.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/service/TagService.java</file>
+            <file>file:/D:/wamp/www/4JVA/SupCourses/SupCourses-ejb/src/java/com/supcourses/service/StudentCertificationService.java</file>
         </group>
     </open-files>
 </project-private>

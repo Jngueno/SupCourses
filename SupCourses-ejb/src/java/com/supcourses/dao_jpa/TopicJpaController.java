@@ -116,7 +116,7 @@ public class TopicJpaController implements TopicDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -151,7 +151,7 @@ public class TopicJpaController implements TopicDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -178,7 +178,7 @@ public class TopicJpaController implements TopicDao {
             }
             return q.getResultList();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -188,7 +188,7 @@ public class TopicJpaController implements TopicDao {
         try {
             return em.find(Topic.class, id);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -202,7 +202,7 @@ public class TopicJpaController implements TopicDao {
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -217,7 +217,7 @@ public class TopicJpaController implements TopicDao {
             Topic topic = (Topic) q.getSingleResult();
             return topic;
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -233,7 +233,7 @@ public class TopicJpaController implements TopicDao {
             return topics;
         }
         finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

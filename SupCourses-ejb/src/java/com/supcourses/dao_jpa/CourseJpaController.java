@@ -124,7 +124,7 @@ public class CourseJpaController implements CourseDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+                //em.close();
             }
         }
     }
@@ -256,7 +256,7 @@ public class CourseJpaController implements CourseDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -314,7 +314,7 @@ public class CourseJpaController implements CourseDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -340,7 +340,7 @@ public class CourseJpaController implements CourseDao {
             }
             return q.getResultList();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -349,7 +349,7 @@ public class CourseJpaController implements CourseDao {
         try {
             return em.find(Course.class, id);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -362,7 +362,7 @@ public class CourseJpaController implements CourseDao {
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -377,7 +377,7 @@ public class CourseJpaController implements CourseDao {
             Course course = (Course) q.getResultList();
             return course;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -393,7 +393,7 @@ public class CourseJpaController implements CourseDao {
             List<Course> courses = (List<Course>) q.getResultList();
             return courses;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

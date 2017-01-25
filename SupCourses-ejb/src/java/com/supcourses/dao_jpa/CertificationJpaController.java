@@ -85,7 +85,7 @@ public class CertificationJpaController implements CertificationDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -160,7 +160,7 @@ public class CertificationJpaController implements CertificationDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -204,7 +204,7 @@ public class CertificationJpaController implements CertificationDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -230,7 +230,7 @@ public class CertificationJpaController implements CertificationDao {
             }
             return q.getResultList();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -239,7 +239,7 @@ public class CertificationJpaController implements CertificationDao {
         try {
             return em.find(Certification.class, id);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -252,7 +252,7 @@ public class CertificationJpaController implements CertificationDao {
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+//            em.close();
         }
     }
     

@@ -79,7 +79,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -138,7 +138,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -178,7 +178,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -203,9 +203,10 @@ public class StudentCourseJpaController implements StudentCourseDao {
                 q.setMaxResults(maxResults);
                 q.setFirstResult(firstResult);
             }
+            System.out.println("com.supcourses.dao_jpa.StudentCourseJpaController.findStudentCourseEntities() : " + q.getFirstResult());
             return q.getResultList();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -215,7 +216,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
         try {
             return em.find(StudentCourse.class, id);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -229,7 +230,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -244,7 +245,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
             List<StudentCourse> studentCourses = (List<StudentCourse>) q.getResultList();
             return studentCourses;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -260,7 +261,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
             List<StudentCourse> studentCourses = (List<StudentCourse>) q.getResultList();
             return studentCourses;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -276,7 +277,7 @@ public class StudentCourseJpaController implements StudentCourseDao {
             StudentCourse studentCourse = (StudentCourse) q.getSingleResult();
         return studentCourse;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -107,7 +107,7 @@ public class ModuleJpaController implements ModuleDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -212,7 +212,7 @@ public class ModuleJpaController implements ModuleDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -265,7 +265,7 @@ public class ModuleJpaController implements ModuleDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -292,7 +292,7 @@ public class ModuleJpaController implements ModuleDao {
             }
             return q.getResultList();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -307,7 +307,7 @@ public class ModuleJpaController implements ModuleDao {
         try {
             return em.find(Module.class, id);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -321,7 +321,7 @@ public class ModuleJpaController implements ModuleDao {
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -341,7 +341,7 @@ public class ModuleJpaController implements ModuleDao {
             List<Module> modules = (List<Module>) q.getResultList();
             return modules;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

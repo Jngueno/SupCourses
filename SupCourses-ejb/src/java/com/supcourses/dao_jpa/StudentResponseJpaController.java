@@ -79,7 +79,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -138,7 +138,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -178,7 +178,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
             throw ex;
         } finally {
             if (em != null) {
-                em.close();
+//                em.close();
             }
         }
     }
@@ -205,7 +205,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
             }
             return q.getResultList();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -215,7 +215,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
         try {
             return em.find(StudentResponse.class, id);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -229,7 +229,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -244,7 +244,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
             List<StudentResponse> studentResponses = (List<StudentResponse>) q.getResultList();
             return studentResponses;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -260,7 +260,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
             List<StudentResponse> studentResponses = (List<StudentResponse>) q.getResultList();
             return studentResponses;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -276,7 +276,7 @@ public class StudentResponseJpaController implements StudentResponseDao {
             StudentResponse studentResponse = (StudentResponse) q.getSingleResult();
             return studentResponse;
         } finally {
-            em.close();
+//            em.close();
         }
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
