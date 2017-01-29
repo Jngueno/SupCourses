@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTopicTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTopicLabel_topicId}" for="topicId" />
+                    <h:inputText id="topicId" value="#{topicController.selected.topicId}" title="#{bundle.EditTopicTitle_topicId}" required="true" requiredMessage="#{bundle.EditTopicRequiredMessage_topicId}"/>
+                    <h:outputLabel value="#{bundle.EditTopicLabel_title}" for="title" />
+                    <h:inputText id="title" value="#{topicController.selected.title}" title="#{bundle.EditTopicTitle_title}" required="true" requiredMessage="#{bundle.EditTopicRequiredMessage_title}"/>
+                    <h:outputLabel value="#{bundle.EditTopicLabel_content}" for="content" />
+                    <h:inputTextarea rows="4" cols="30" id="content" value="#{topicController.selected.content}" title="#{bundle.EditTopicTitle_content}" required="true" requiredMessage="#{bundle.EditTopicRequiredMessage_content}"/>
+                    <h:outputLabel value="#{bundle.EditTopicLabel_duration}" for="duration" />
+                    <h:inputText id="duration" value="#{topicController.selected.duration}" title="#{bundle.EditTopicTitle_duration}" required="true" requiredMessage="#{bundle.EditTopicRequiredMessage_duration}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditTopicLabel_validate}" for="validate" />
+                    <h:inputText id="validate" value="#{topicController.selected.validate}" title="#{bundle.EditTopicTitle_validate}" required="true" requiredMessage="#{bundle.EditTopicRequiredMessage_validate}"/>
+                    <h:outputLabel value="#{bundle.EditTopicLabel_moduleId}" for="moduleId" />
+                    <h:selectOneMenu id="moduleId" value="#{topicController.selected.moduleId}" title="#{bundle.EditTopicTitle_moduleId}" required="true" requiredMessage="#{bundle.EditTopicRequiredMessage_moduleId}">
+                        <f:selectItems value="#{moduleController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{topicController.update}" value="#{bundle.EditTopicSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTopicViewLink}"/>
+                <br />
+                <h:commandLink action="#{topicController.prepareList}" value="#{bundle.EditTopicShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTopicIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

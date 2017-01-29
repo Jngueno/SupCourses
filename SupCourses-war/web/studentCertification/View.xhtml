@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewStudentCertificationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewStudentCertificationLabel_studentCertificationId}"/>
+                    <h:outputText value="#{studentCertificationController.selected.studentCertificationId}" title="#{bundle.ViewStudentCertificationTitle_studentCertificationId}"/>
+                    <h:outputText value="#{bundle.ViewStudentCertificationLabel_dateDelivered}"/>
+                    <h:outputText value="#{studentCertificationController.selected.dateDelivered}" title="#{bundle.ViewStudentCertificationTitle_dateDelivered}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewStudentCertificationLabel_certificationId}"/>
+                    <h:outputText value="#{studentCertificationController.selected.certificationId}" title="#{bundle.ViewStudentCertificationTitle_certificationId}"/>
+                    <h:outputText value="#{bundle.ViewStudentCertificationLabel_studentId}"/>
+                    <h:outputText value="#{studentCertificationController.selected.studentId}" title="#{bundle.ViewStudentCertificationTitle_studentId}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{studentCertificationController.destroyAndView}" value="#{bundle.ViewStudentCertificationDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewStudentCertificationEditLink}"/>
+                <br />
+                <h:commandLink action="#{studentCertificationController.prepareCreate}" value="#{bundle.ViewStudentCertificationCreateLink}" />
+                <br />
+                <h:commandLink action="#{studentCertificationController.prepareList}" value="#{bundle.ViewStudentCertificationShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewStudentCertificationIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

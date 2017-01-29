@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditModuleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditModuleLabel_moduleId}" for="moduleId" />
+                    <h:inputText id="moduleId" value="#{moduleController.selected.moduleId}" title="#{bundle.EditModuleTitle_moduleId}" required="true" requiredMessage="#{bundle.EditModuleRequiredMessage_moduleId}"/>
+                    <h:outputLabel value="#{bundle.EditModuleLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{moduleController.selected.name}" title="#{bundle.EditModuleTitle_name}" required="true" requiredMessage="#{bundle.EditModuleRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.EditModuleLabel_description}" for="description" />
+                    <h:inputTextarea rows="4" cols="30" id="description" value="#{moduleController.selected.description}" title="#{bundle.EditModuleTitle_description}" required="true" requiredMessage="#{bundle.EditModuleRequiredMessage_description}"/>
+                    <h:outputLabel value="#{bundle.EditModuleLabel_duration}" for="duration" />
+                    <h:inputText id="duration" value="#{moduleController.selected.duration}" title="#{bundle.EditModuleTitle_duration}" required="true" requiredMessage="#{bundle.EditModuleRequiredMessage_duration}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditModuleLabel_courseId}" for="courseId" />
+                    <h:selectOneMenu id="courseId" value="#{moduleController.selected.courseId}" title="#{bundle.EditModuleTitle_courseId}" required="true" requiredMessage="#{bundle.EditModuleRequiredMessage_courseId}">
+                        <f:selectItems value="#{courseController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{moduleController.update}" value="#{bundle.EditModuleSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditModuleViewLink}"/>
+                <br />
+                <h:commandLink action="#{moduleController.prepareList}" value="#{bundle.EditModuleShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditModuleIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

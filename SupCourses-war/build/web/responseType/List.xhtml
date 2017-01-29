@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListResponseTypeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListResponseTypeEmpty}" rendered="#{responseTypeController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{responseTypeController.items.rowCount > 0}">
+                    <h:outputText value="#{responseTypeController.pagination.pageFirstItem + 1}..#{responseTypeController.pagination.pageLastItem + 1}/#{responseTypeController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{responseTypeController.previous}" value="#{bundle.Previous} #{responseTypeController.pagination.pageSize}" rendered="#{responseTypeController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{responseTypeController.next}" value="#{bundle.Next} #{responseTypeController.pagination.pageSize}" rendered="#{responseTypeController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{responseTypeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListResponseTypeTitle_responseTypeId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.responseTypeId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListResponseTypeTitle_responseTypeContent}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.responseTypeContent}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{responseTypeController.prepareView}" value="#{bundle.ListResponseTypeViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{responseTypeController.prepareEdit}" value="#{bundle.ListResponseTypeEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{responseTypeController.destroy}" value="#{bundle.ListResponseTypeDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{responseTypeController.prepareCreate}" value="#{bundle.ListResponseTypeCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListResponseTypeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

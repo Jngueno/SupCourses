@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateTopicTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateTopicLabel_topicId}" for="topicId" />
+                    <h:inputText id="topicId" value="#{topicController.selected.topicId}" title="#{bundle.CreateTopicTitle_topicId}" required="true" requiredMessage="#{bundle.CreateTopicRequiredMessage_topicId}"/>
+                    <h:outputLabel value="#{bundle.CreateTopicLabel_title}" for="title" />
+                    <h:inputText id="title" value="#{topicController.selected.title}" title="#{bundle.CreateTopicTitle_title}" required="true" requiredMessage="#{bundle.CreateTopicRequiredMessage_title}"/>
+                    <h:outputLabel value="#{bundle.CreateTopicLabel_content}" for="content" />
+                    <h:inputTextarea rows="4" cols="30" id="content" value="#{topicController.selected.content}" title="#{bundle.CreateTopicTitle_content}" required="true" requiredMessage="#{bundle.CreateTopicRequiredMessage_content}"/>
+                    <h:outputLabel value="#{bundle.CreateTopicLabel_duration}" for="duration" />
+                    <h:inputText id="duration" value="#{topicController.selected.duration}" title="#{bundle.CreateTopicTitle_duration}" required="true" requiredMessage="#{bundle.CreateTopicRequiredMessage_duration}">
+                        <f:convertDateTime pattern="HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateTopicLabel_validate}" for="validate" />
+                    <h:inputText id="validate" value="#{topicController.selected.validate}" title="#{bundle.CreateTopicTitle_validate}" required="true" requiredMessage="#{bundle.CreateTopicRequiredMessage_validate}"/>
+                    <h:outputLabel value="#{bundle.CreateTopicLabel_moduleId}" for="moduleId" />
+                    <h:selectOneMenu id="moduleId" value="#{topicController.selected.moduleId}" title="#{bundle.CreateTopicTitle_moduleId}" required="true" requiredMessage="#{bundle.CreateTopicRequiredMessage_moduleId}">
+                        <f:selectItems value="#{moduleController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{topicController.create}" value="#{bundle.CreateTopicSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{topicController.prepareList}" value="#{bundle.CreateTopicShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateTopicIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListScoreTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListScoreEmpty}" rendered="#{scoreController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{scoreController.items.rowCount > 0}">
+                    <h:outputText value="#{scoreController.pagination.pageFirstItem + 1}..#{scoreController.pagination.pageLastItem + 1}/#{scoreController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{scoreController.previous}" value="#{bundle.Previous} #{scoreController.pagination.pageSize}" rendered="#{scoreController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{scoreController.next}" value="#{bundle.Next} #{scoreController.pagination.pageSize}" rendered="#{scoreController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{scoreController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScoreTitle_scoreId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.scoreId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScoreTitle_score}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.score}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScoreTitle_studentId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.studentId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListScoreTitle_quizzId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.quizzId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{scoreController.prepareView}" value="#{bundle.ListScoreViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{scoreController.prepareEdit}" value="#{bundle.ListScoreEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{scoreController.destroy}" value="#{bundle.ListScoreDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{scoreController.prepareCreate}" value="#{bundle.ListScoreCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListScoreIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

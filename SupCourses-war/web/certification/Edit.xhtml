@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditCertificationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditCertificationLabel_certificationId}" for="certificationId" />
+                    <h:inputText id="certificationId" value="#{certificationController.selected.certificationId}" title="#{bundle.EditCertificationTitle_certificationId}" required="true" requiredMessage="#{bundle.EditCertificationRequiredMessage_certificationId}"/>
+                    <h:outputLabel value="#{bundle.EditCertificationLabel_score}" for="score" />
+                    <h:inputText id="score" value="#{certificationController.selected.score}" title="#{bundle.EditCertificationTitle_score}" required="true" requiredMessage="#{bundle.EditCertificationRequiredMessage_score}"/>
+                    <h:outputLabel value="#{bundle.EditCertificationLabel_courseId}" for="courseId" />
+                    <h:selectOneMenu id="courseId" value="#{certificationController.selected.courseId}" title="#{bundle.EditCertificationTitle_courseId}" required="true" requiredMessage="#{bundle.EditCertificationRequiredMessage_courseId}">
+                        <f:selectItems value="#{courseController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{certificationController.update}" value="#{bundle.EditCertificationSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditCertificationViewLink}"/>
+                <br />
+                <h:commandLink action="#{certificationController.prepareList}" value="#{bundle.EditCertificationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditCertificationIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
