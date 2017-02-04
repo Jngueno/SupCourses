@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="templates/homeAuth.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">Algorithm in python</ui:define>
+    <ui:define name="content">
+        <b:container class="sidebar-bg full-start full-start-child" fluid="true">
+            <b:row>
+                <b:column class="course-sidebar" col-sm="3">
+                    <b:listLinks>
+                        <b:navLink href="http://www.bootsfaces.net" value="BootsFaces"
+                                   icon="globe" iconAlign="left"/>
+                        <b:navLink href="http://getbootstrap.com/components/#navbar" value="Bootstrap" icon="link"></b:navLink>
+                        <b:navLink value="Labels and Badges" outcome="/bootstrap/labelsbadge"
+                                   icon="tag" iconAlign="left"/>
+                        <b:navLink value="Slider" outcome="/jquery-ui/slider" iconAwesome="sliders"/>
+                        
+                        <b:messages />
+
+                    </b:listLinks>
+                </b:column>
+            </b:row>
+        </b:container>
+    </ui:define>
+</ui:composition>

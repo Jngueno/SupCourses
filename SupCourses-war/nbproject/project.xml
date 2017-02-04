@@ -12,14 +12,16 @@
                 <library dirs="100">
                     <file>${reference.SupCourses-ejb.dist}</file>
                 </library>
+                <library dirs="200">
+                    <file>${file.reference.BootsFaces-OSP-1.0.2-dist.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
                 <root id="src.dir" name="Source Packages"/>
             </source-roots>
-            <test-roots>
-                <root id="test.src.dir" name="Test Packages"/>
-            </test-roots>
+            <test-roots/>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>

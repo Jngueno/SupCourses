@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="templates/homeNotAuth.xhtml">
+    <ui:define name="title">
+        Espace d'inscription
+    </ui:define>
+    <ui:define name="content">
+        <div class="full formContainer">
+            <div class="bg"></div>
+            <div class="bg-content">
+                <h1 class="formTitle">S'inscrire</h1>
+                <h:form class="formLogReg">
+                    <b:inputText id="firstname" value="#{studentBean.firstname}" label="Prénom"
+                                 required="true" renderLabel="true"   />
+                    <h:message for="firstname" />
+                    <b:inputText id="lastname" value="#{studentBean.lastname}" label="Nom"
+                                 required="true" renderLabel="true" />
+                    <h:message for="age" />
+                    <b:inputText id="email" value="#{studentBean.eMail}" label="E-mail adresse"
+                                 required="true" renderLabel="true" />
+                    <h:message for="email" />
+                    <b:inputSecret id="password" value="#{studentBean.password}" label="Mot de passe"
+                                 required="true" renderLabel="true" />
+                    <h:message for="password" />
+                    <div class="center" align="center">
+                        <b:commandButton action="#{studentBean.register()}" value="Sign Up" />
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+

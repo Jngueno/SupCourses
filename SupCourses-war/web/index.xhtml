@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="templates/homeNotAuth.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">SupCourses</ui:define>
+    <ui:define name="links">
+        <b:navBar brand="SupCourses" brandHref="#" fixed="top" inverse="true" class="perso-nav-inv">
+            <b:navbarLinks pull="right">
+                <b:navLink value="Log in" href="#login"></b:navLink>
+                <b:navLink value="Register" href="#register"></b:navLink>
+            </b:navbarLinks>
+        </b:navBar>
+    </ui:define>
+    <ui:define name="content">
+        <div class="searchEngine">
+            <div class="container">
+                <div class="bg searchEngine-bg"></div>
+                <div class="bg-content searchEngine-content">
+                    <h:form>
+                        <b:row>
+                            <b:column col-xs="7" col-sm="8">
+                                <b:inputText fieldSize="lg"></b:inputText>
+                            </b:column>
+                            <b:column col-xs="5" col-sm="4">
+                                <b:selectOneMenu fieldSize="lg">
+                                    <f:selectItem itemLabel="Développement" itemValue="Development"></f:selectItem>
+                                    <f:selectItem itemLabel="Télécommunication" itemValue="Telecommunication"></f:selectItem>
+                                    <f:selectItem itemLabel="Data" itemValue="Data"></f:selectItem>
+                                    <f:selectItem itemLabel="Infrastructure" itemValue="Infrastructure"></f:selectItem>
+                                    <f:selectItem itemLabel="Autres" itemValue="Others"></f:selectItem>
+                                </b:selectOneMenu>
+                            </b:column>
+                        </b:row>
+                        <b:row class="center searchBut-container">
+                            <b:column>
+                                <b:commandButton iconAwesome="search" class="fa perso-but-lg searchBut" update="@form" value="Search" />
+                            </b:column>
+                        </b:row>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <div class="statistics zigzag">
+            <div class="container">
+                <b:row>
+                    <b:column  class="center" col-xs="4">
+                        <b:iconAwesome size="3x" name="book"/>
+                        <h4><h:outputText value="#{courseBean.listAllCourse().size()}"/></h4>
+                    </b:column>
+                    <b:column  class="center" col-xs="4">
+                        <b:iconAwesome size="3x" name="clock-o"/>
+                        <h4>240</h4>
+                    </b:column>
+                    <b:column  class="center" col-xs="4">
+                        <b:iconAwesome size="3x" name="user"/>
+                        <h4>10</h4>
+                    </b:column>
+                </b:row>
+            </div>
+        </div>
+        <div class="listResult searchResult ">
+            <b:container>
+                <b:row>
+                    <ui:repeat value="#{courseBean.listAllCourse()}" var="course">
+                        <b:column col-lg="4" col-md="6" col-sm="12">
+                            <b:panel>
+                                <div  class="course_title center course_zigzag course_elem">
+                                    <h2><h:outputText value="#{course.name}"/></h2>
+                                </div>
+                                <div class="course_description course_zigzag course_elem">
+                                    <p>
+                                        The Diploma in International Financial Reporting (DipIFR) is assessed by a single three-hour, 15 minute written exam. You will need to achieve a 50 per cent mark or above to complete the paper. The exam is held twice a year - in June and December at ACCA's exam centres. Please see the dates and fees tab for the most up-to-date exam dates.
+                                    </p>
+                                </div>
+                                <div class="course_tag center course_elem">
+                                    <p>#{course.tagId.tagName}</p>
+                                </div>
+                                <div class="course_stats course_elem">
+                                    <b:row>
+                                        <b:column class="center" col-xs="6">
+                                            <h:outputText value="#{course.moduleCollection.size()}"/> Modules
+                                        </b:column>
+                                        <b:column class="center" col-xs="6">
+                                            <h:outputText value="#{course.duration.hours}"/> Heures
+                                        </b:column>
+                                    </b:row>
+                                </div>
+                                <div class="course_subscribe center course_elem">
+                                    <b:row>
+                                        <b:modal title="#{course.name}" styleClass="course_previsualisation"
+                                                 closable="true" close-on-escape="false" backdrop="false">
+                                            <!--<b:dataTable border="false" searching="false" paginated="false" page-length-menu="false">
+                                                <b:dataTableColumn orderable="false" value="Lorem ipsum">
+                                                </b:dataTableColumn>
+                                            </b:dataTable>-->
+                                            <b:dataTable value="#{course.moduleCollection}" var="module" border="false" searching="false" paginated="false" page-length-menu="false">
+                                                <b:dataTableColumn orderable="false" value="#{module.name}">
+                                                    <f:facet name="header">Module name</f:facet>
+                                                </b:dataTableColumn>
+                                            </b:dataTable>
+                                            <f:facet name="footer">
+                                                <h:form>
+                                                    <b:commandButton class="course_buts purple-500-bg purple-700-border purple-50-color" iconAwesome="hand-rock-o"  iconSize="2x" value=""/>
+                                                </h:form>
+                                            </f:facet>
+                                        </b:modal>
+                                        <b:column col-xs="6">
+                                            <h:form>
+                                                <b:commandButton class="previewBut course_buts" iconAwesome="eye" action="#{moduleBean.getModulesByCourse(course)}"  iconSize="2x" value="" onclick="$('.course_previsualisation').modal();return false;"/>
+                                            </h:form>
+                                        </b:column>
+                                        <b:column col-xs="6">
+                                            <h:form>
+                                                <b:commandButton class="course_buts purple-500-bg purple-700-border purple-50-color" iconAwesome="hand-rock-o"  iconSize="2x" value=""/>
+                                            </h:form>
+                                        </b:column>
+                                    </b:row>
+                                </div>
+                            </b:panel>
+                        </b:column>
+                    </ui:repeat>
+                </b:row>
+            </b:container>
+        </div>
+    </ui:define>
+</ui:composition>

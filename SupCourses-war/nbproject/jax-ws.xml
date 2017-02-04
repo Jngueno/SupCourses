@@ -7,6 +7,12 @@
     <service name="GetCourseRessource">
       <implementation-class>com.supcourses.service.soap.GetCourseRessource</implementation-class>
     </service>
+    <service name="GetUserById">
+      <implementation-class>com.supcourses.service.soap.GetUserById</implementation-class>
+    </service>
+    <service name="PrintCertification">
+      <implementation-class>com.supcourses.service.soap.PrintCertification</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
